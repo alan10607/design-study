@@ -1,25 +1,42 @@
 package com.alan.design.strategypattern;
 
+import com.alan.design.strategypattern.skill.SkillStrategy;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+
+@Service
 public class SkillService {
-    private final SkillStrategy skillStrategy;
+    private final Map<Character, SkillStrategy> strategyMap;
 
-    public SkillService(SkillStrategy skillStrategy) {
-        this.skillStrategy = skillStrategy;
+    @Autowired
+    public SkillService(List<SkillStrategy> skillStrategies) {
+        this.strategyMap = skillStrategies.stream()
+                .collect(Collectors.toMap(SkillStrategy::getCharacter, Function.identity()));
     }
 
-    public String doQ() {
-        return skillStrategy.doQ();
+    private SkillStrategy getSkillStrategy(Character character) {
+        return Optional.ofNullable(strategyMap.get(character)).orElseThrow(() -> new IllegalStateException("unsupported strategy"));
     }
 
-    public String doW() {
-        return skillStrategy.doW();
+    public String doQ(Character character) {
+        return getSkillStrategy(character).doQ();
     }
 
-    public String doE() {
-        return skillStrategy.doE();
+    public String doW(Character character) {
+        return getSkillStrategy(character).doW();
     }
 
-    public String doR() {
-        return skillStrategy.doR();
+    public String doE(Character character) {
+        return getSkillStrategy(character).doE();
+    }
+
+    public String doR(Character character) {
+        return getSkillStrategy(character).doR();
     }
 }
