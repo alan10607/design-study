@@ -9,7 +9,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class TaxFreeProduct extends Product {
-    private int taxPrice;
 
     @Override
     public ProductType getProductType() {
