@@ -1,4 +1,4 @@
-package com.alan.design.builderPattern;
+package com.alan.design.builderpattern;
 
 import org.springframework.stereotype.Service;
 
