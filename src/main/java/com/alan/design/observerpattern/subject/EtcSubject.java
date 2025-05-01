@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class EtcSubject extends CryptoSubject {
 
-    public void notifyObservers(int price) {
+    public void notifyPrice(int price) {
         super.notifyObservers(new CryptoMessage(Crypto.ETC, price));
     }
 

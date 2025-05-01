@@ -16,7 +16,7 @@ public class StorageObserver implements CryptoObserver {
     @Override
     public void receive(CryptoMessage message) {
         data.put(message.getCrypto(), message);
-        log.info("Storage receive {} message {}", message.getCrypto(), message);
+        log.info("Storage observer receive {} message {}", message.getCrypto(), message);
     }
 
     public CryptoMessage getData(Crypto crypto) {

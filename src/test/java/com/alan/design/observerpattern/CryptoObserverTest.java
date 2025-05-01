@@ -11,6 +11,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import static com.alan.design.observerpattern.Crypto.BTC;
+import static com.alan.design.observerpattern.Crypto.ETC;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
@@ -37,34 +39,38 @@ class CryptoObserverTest {
         etcSubject.registerObserver(webObserver);
         etcSubject.registerObserver(storageObserver);
 
-        btcSubject.notifyObservers(111);
-        assertEquals(webObserver.getData(Crypto.BTC).getPrice(), 111);
-        assertNull(webObserver.getData(Crypto.ETC));
-        assertEquals(storageObserver.getData(Crypto.BTC).getPrice(), 111);
-        assertNull(storageObserver.getData(Crypto.ETC));
+        btcSubject.notifyPrice(111);
+        assertEquals(webObserver.getData(BTC).getPrice(), 111);
+        assertNull(webObserver.getData(ETC));
+        assertEquals(storageObserver.getData(BTC).getPrice(), 111);
+        assertNull(storageObserver.getData(ETC));
 
-        etcSubject.notifyObservers(222);
-        assertEquals(webObserver.getData(Crypto.BTC).getPrice(), 111);
-        assertEquals(webObserver.getData(Crypto.ETC).getPrice(), 222);
-        assertEquals(storageObserver.getData(Crypto.BTC).getPrice(), 111);
-        assertEquals(storageObserver.getData(Crypto.ETC).getPrice(), 222);
-
+        etcSubject.notifyPrice(222);
+        assertEquals(webObserver.getData(BTC).getPrice(), 111);
+        assertEquals(webObserver.getData(ETC).getPrice(), 222);
+        assertEquals(storageObserver.getData(BTC).getPrice(), 111);
+        assertEquals(storageObserver.getData(ETC).getPrice(), 222);
 
         log.info("Remove storageObserver form etcSubject");
         etcSubject.removeObserver(storageObserver);
-        etcSubject.notifyObservers(333);
-        assertEquals(webObserver.getData(Crypto.BTC).getPrice(), 111);
-        assertEquals(webObserver.getData(Crypto.ETC).getPrice(), 333);
-        assertEquals(storageObserver.getData(Crypto.BTC).getPrice(), 111);
-        assertEquals(storageObserver.getData(Crypto.ETC).getPrice(), 222);
-
+        etcSubject.notifyPrice(333);
+        assertEquals(webObserver.getData(BTC).getPrice(), 111);
+        assertEquals(webObserver.getData(ETC).getPrice(), 333);
+        assertEquals(storageObserver.getData(BTC).getPrice(), 111);
+        assertEquals(storageObserver.getData(ETC).getPrice(), 222);
 
         log.info("Add storageObserver to etcSubject");
         etcSubject.registerObserver(storageObserver);
-        etcSubject.notifyObservers(444);
-        assertEquals(webObserver.getData(Crypto.BTC).getPrice(), 111);
-        assertEquals(webObserver.getData(Crypto.ETC).getPrice(), 444);
-        assertEquals(storageObserver.getData(Crypto.BTC).getPrice(), 111);
-        assertEquals(storageObserver.getData(Crypto.ETC).getPrice(), 444);
+        etcSubject.notifyPrice(444);
+        assertEquals(webObserver.getData(BTC).getPrice(), 111);
+        assertEquals(webObserver.getData(ETC).getPrice(), 444);
+        assertEquals(storageObserver.getData(BTC).getPrice(), 111);
+        assertEquals(storageObserver.getData(ETC).getPrice(), 444);
+
+        btcSubject.notifyPrice(555);
+        assertEquals(webObserver.getData(BTC).getPrice(), 555);
+        assertEquals(webObserver.getData(ETC).getPrice(), 444);
+        assertEquals(storageObserver.getData(BTC).getPrice(), 555);
+        assertEquals(storageObserver.getData(ETC).getPrice(), 444);
     }
 }
