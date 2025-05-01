@@ -1,13 +1,11 @@
 package com.alan.design.factorypattern.product;
 
 import com.alan.design.factorypattern.ProductType;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.EqualsAndHashCode;
 
+@EqualsAndHashCode(callSuper = true)
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class TaxFreeProduct extends Product {
 
     @Override
