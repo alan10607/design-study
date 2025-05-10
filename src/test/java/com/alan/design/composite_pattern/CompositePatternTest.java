@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class CompositePatternTest {
 
     @Test
-    void add() {
+    void testFileAndFolderOperation() {
         FileNode file1 = new FileNode("File1.txt");
         FileNode file2 = new FileNode("File2.txt");
         FileNode file3 = new FileNode("File3.txt");
