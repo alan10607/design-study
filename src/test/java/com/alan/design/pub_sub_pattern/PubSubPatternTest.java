@@ -15,7 +15,6 @@ import static com.alan.design.observer_pattern.Crypto.ETC;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-@ExtendWith(MockitoExtension.class)
 @SpringBootTest
 @Slf4j
 class PubSubPatternTest {

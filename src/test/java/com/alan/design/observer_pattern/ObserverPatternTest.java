@@ -6,8 +6,6 @@ import com.alan.design.observer_pattern.subject.BtcSubject;
 import com.alan.design.observer_pattern.subject.EtcSubject;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -16,7 +14,6 @@ import static com.alan.design.observer_pattern.Crypto.ETC;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-@ExtendWith(MockitoExtension.class)
 @SpringBootTest
 @Slf4j
 class ObserverPatternTest {
