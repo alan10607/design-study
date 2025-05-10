@@ -5,8 +5,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public abstract class SystemNodeComponent {
-    private String name;
-    private List<SystemNodeComponent> children;
+    private final String name;
+    private final List<SystemNodeComponent> children;
 
     public SystemNodeComponent(String name) {
         this.name = name;
