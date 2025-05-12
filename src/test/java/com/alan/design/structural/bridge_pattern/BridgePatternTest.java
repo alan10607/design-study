@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class BridgePatternTest {
 
     @Test
-    void testNotify() {
+    void testNotifyWithDifferentSenders() {
         String testBody = "test123";
         NotificationService normalEmailNotificationService = new NormalNotificationService(new EmailSender());
         NotificationService highPriorityEmailNotificationService = new HighPriorityNotificationService(new EmailSender());
