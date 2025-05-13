@@ -27,4 +27,9 @@ public class ProductService extends CrudTemplate<Product> {
     protected void beforeCreate(Product entity) {
         // skip detail
     }
+
+    @Override
+    protected void afterCreate(Product entity) {
+        // skip detail
+    }
 }

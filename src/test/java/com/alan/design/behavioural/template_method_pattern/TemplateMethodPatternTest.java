@@ -37,6 +37,7 @@ class TemplateMethodPatternTest {
         // should run template methods
         verify(productService, times(1)).validate(any());
         verify(productService, times(1)).beforeCreate(any());
+        verify(productService, times(1)).afterCreate(any());
         verify(productService, times(2)).getRepository();
     }
 

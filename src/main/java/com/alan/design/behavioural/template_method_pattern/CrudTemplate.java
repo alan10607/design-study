@@ -14,7 +14,9 @@ public abstract class CrudTemplate<E extends CrudEntity> {
         // template method here
         validate(entity);
         beforeCreate(entity);
-        return getRepository().save(entity);
+        E newEntity = getRepository().save(entity);
+        afterCreate(entity);
+        return newEntity;
     }
 
     protected abstract Repository<E> getRepository();
@@ -22,4 +24,6 @@ public abstract class CrudTemplate<E extends CrudEntity> {
     protected abstract void validate(E entity);
 
     protected abstract void beforeCreate(E entity);
+
+    protected abstract void afterCreate(E entity);
 }

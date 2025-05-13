@@ -10,11 +10,11 @@ import java.util.List;
 public class BestProductFacade {
     private final SalesService salesService;
     private final InventoryService inventoryService;
-    private final ProductService productService;
+    private final productQueryService productQueryService;
 
     public List<Product> getTopSellingProducts() {
         List<Integer> topSellingIds = salesService.getTopSellingProductIds();
         List<Integer> availableTopSellingIds = inventoryService.getAvailableProducts(topSellingIds);
-        return productService.get(availableTopSellingIds);
+        return productQueryService.get(availableTopSellingIds);
     }
 }

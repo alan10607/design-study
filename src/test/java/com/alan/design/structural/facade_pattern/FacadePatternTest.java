@@ -27,7 +27,7 @@ class FacadePatternTest {
     private InventoryService inventoryService;
 
     @Mock
-    private ProductService productService;
+    private productQueryService productQueryService;
 
     @Test
     void testGetTopSellingProducts() {
@@ -48,7 +48,7 @@ class FacadePatternTest {
             List<Integer> ids = invocation.getArgument(0);
             return ids.stream().filter(mockedInStockProducts::get).collect(Collectors.toList());
         });
-        when(productService.get(anyList())).thenAnswer(invocation -> {
+        when(productQueryService.get(anyList())).thenAnswer(invocation -> {
             List<Integer> ids = invocation.getArgument(0);
             return ids.stream().map(mockedProducts::get).collect(Collectors.toList());
         });
@@ -64,6 +64,6 @@ class FacadePatternTest {
         assertEquals(topSellingProducts.get(1).getId(), 33);
         verify(salesService, times(1)).getTopSellingProductIds();
         verify(inventoryService, times(1)).getAvailableProducts(anyList());
-        verify(productService, times(1)).get(anyList());
+        verify(productQueryService, times(1)).get(anyList());
     }
 }
