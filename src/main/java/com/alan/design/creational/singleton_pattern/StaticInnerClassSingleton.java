@@ -9,7 +9,7 @@ public class StaticInnerClassSingleton {
         private static final StaticInnerClassSingleton INSTANCE = new StaticInnerClassSingleton();
     }
 
-    public static synchronized StaticInnerClassSingleton getInstance() {
+    public static StaticInnerClassSingleton getInstance() {
         return Holder.INSTANCE;
     }
 
