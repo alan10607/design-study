@@ -9,23 +9,19 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @SpringBootTest
 class StrategyPatternTest {
     @Autowired
-    private SkillService skillService;
+    private TransactionService transactionService;
 
     @Test
-    void testSkillStrategy() {
-        assertEquals(skillService.doQ(Character.GAREN), "Garen do Q");
-        assertEquals(skillService.doW(Character.GAREN), "Garen do W");
-        assertEquals(skillService.doE(Character.GAREN), "Garen do E");
-        assertEquals(skillService.doR(Character.GAREN), "Garen do R");
+    void testTransactionStrategy() {
+        Ticket ticket1 = new Ticket(TransactionType.CASH, 100);
+        Ticket ticket2 = new Ticket(TransactionType.CREDIT_CARD, 200);
+        Ticket ticket3 = new Ticket(TransactionType.CRYPTO, 300);
 
-        assertEquals(skillService.doQ(Character.ASHE), "Ashe do Q");
-        assertEquals(skillService.doW(Character.ASHE), "Ashe do W");
-        assertEquals(skillService.doE(Character.ASHE), "Ashe do E");
-        assertEquals(skillService.doR(Character.ASHE), "Ashe do R");
-
-        assertEquals(skillService.doQ(Character.JAX), "Jax do Q");
-        assertEquals(skillService.doW(Character.JAX), "Jax do W");
-        assertEquals(skillService.doE(Character.JAX), "Jax do E");
-        assertEquals(skillService.doR(Character.JAX), "Jax do R");
+        assertEquals(transactionService.executeTransaction(ticket1), "Cash transaction: " + ticket1);
+        assertEquals(transactionService.getReceipt(ticket1), "Cash receipt: " + ticket1);
+        assertEquals(transactionService.executeTransaction(ticket2), "Credit card transaction: " + ticket2);
+        assertEquals(transactionService.getReceipt(ticket2), "Credit card receipt: " + ticket2);
+        assertEquals(transactionService.executeTransaction(ticket3), "Crypto transaction: " + ticket3);
+        assertEquals(transactionService.getReceipt(ticket3), "Crypto receipt: " + ticket3);
     }
 }
