@@ -15,7 +15,7 @@ class StatePatternTest {
     private DocumentService documentService;
 
     @Test
-    void request() {
+    void testDocumentRequest() {
         Document document = documentFactory.createDocument();
         assertEquals(documentService.getAction(), "");
 

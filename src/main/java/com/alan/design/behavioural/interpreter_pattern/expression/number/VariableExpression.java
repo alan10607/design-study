@@ -10,7 +10,7 @@ public class VariableExpression implements NumericExpression {
             String getterName = "get" + fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1);
             Method getter = obj.getClass().getMethod(getterName);
             Object value = getter.invoke(obj);
-            this.value = ((Number)value).intValue();
+            this.value = ((Number) value).intValue();
         } catch (Exception e) {
             throw new RuntimeException("Extract field failed", e);
         }

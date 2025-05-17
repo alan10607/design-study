@@ -9,59 +9,63 @@ import com.alan.design.behavioural.interpreter_pattern.expression.number.Numeric
 import com.alan.design.behavioural.interpreter_pattern.expression.number.VariableExpression;
 
 public class ExpressionInterpreter {
-    private Object obj;
+    private final String expression;
 
-    public BooleanExpression parse(String input, Object obj) {
-        String[] tokens = tokenize(input);
-        BooleanExpression result = null;
-        int i = 0;
+    public ExpressionInterpreter(String expression) {
+        this.expression = expression;
+    }
+
+    public BooleanExpression parse(Object context) {
+        String[] tokens = tokenize(expression);
+
+        BooleanExpression result = parseComparison(
+                parseOperand(tokens[0], context),
+                tokens[1],
+                parseOperand(tokens[2], context)
+        );
+
+        int i = 3;
         while (i < tokens.length) {
+            String logicalOp = tokens[i++];
             String left = tokens[i++];
-            String operator = tokens[i++];
+            String comparisonOp = tokens[i++];
             String right = tokens[i++];
 
-            NumericExpression leftExp = mapLeftOrRight(left);
-            NumericExpression rightExp = mapLeftOrRight(right);
-            BooleanExpression operatorExp = mapOperator(operator, leftExp, rightExp);
-
-            if (result == null) {
-                result = operatorExp;
-            } else if(i + 1 < tokens.length){
-                String right = tokens[i++];
-
-                result = mapAndOr(tokens[i + 3], tmp, operator);
-            }
-
+            BooleanExpression next = parseComparison(
+                    parseOperand(left, context),
+                    comparisonOp,
+                    parseOperand(right, context)
+            );
+            result = parseLogical(result, logicalOp, next);
         }
 
-        return tmp;
-
+        return result;
     }
 
     private String[] tokenize(String input) {
         return input.split("\\s+");
     }
 
-    private NumericExpression mapLeftOrRight(String token) {
+    private NumericExpression parseOperand(String token, Object context) {
         if (isNumeric(token)) {
             return new ConstantExpression(token);
         } else {
-            return new VariableExpression(obj, token);
+            return new VariableExpression(context, token);
         }
     }
 
-    private BooleanExpression mapOperator(String token, NumericExpression left, NumericExpression right) {
-        return switch (token) {
-            case ">" -> new LeftGtRightExpression(left, right);
-            case "<" -> new LeftLtRightExpression(left, right);
-            default -> throw new RuntimeException("Unsupported operator");
+    private BooleanExpression parseComparison(NumericExpression leftExp, String comparisonOp, NumericExpression rightExp) {
+        return switch (comparisonOp) {
+            case ">" -> new LeftGtRightExpression(leftExp, rightExp);
+            case "<" -> new LeftLtRightExpression(leftExp, rightExp);
+            default -> throw new RuntimeException("Unsupported comparison operator:" + comparisonOp);
         };
     }
 
-    private BooleanExpression mapAndOr(String token, BooleanExpression left, BooleanExpression right) {
-        return switch (token) {
-            case "&&" -> new AndExpression(left, right);
-            default -> throw new RuntimeException("Unsupported operator");
+    private BooleanExpression parseLogical(BooleanExpression leftExp, String logicalOp, BooleanExpression rightExp) {
+        return switch (logicalOp) {
+            case "&&" -> new AndExpression(leftExp, rightExp);
+            default -> throw new RuntimeException("Unsupported logical operator:" + logicalOp);
         };
     }
 

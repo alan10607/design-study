@@ -17,7 +17,7 @@ class CommandPatternTest {
     private StockService stockService;
 
     @Test
-    void addCommand() {
+    void testTradeCommand() {
         TradeCommand buyAPPLCommand = new BuyStockCommand(stockService, "APPL", 10);
         TradeCommand sellTSLACommand = new SellStockCommand(stockService, "TSLA", 5);
         TradeCommandExecutor executor = new TradeCommandExecutor();
