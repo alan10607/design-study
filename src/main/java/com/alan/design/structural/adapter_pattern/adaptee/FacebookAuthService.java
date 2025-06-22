@@ -6,10 +6,12 @@ import org.springframework.stereotype.Service;
 public class FacebookAuthService {
 
     public String checkToken(String token) {
-        return "FacebookInfo"; // skip detail
+        // skip detail
+        return "Facebook, checkToken with " + token;
     }
 
-    public void logout(String token) {
+    public String logout(String token) {
         // skip detail
+        return "Facebook, logout with " + token;
     }
 }

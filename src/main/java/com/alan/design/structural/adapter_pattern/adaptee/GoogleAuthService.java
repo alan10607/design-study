@@ -6,10 +6,12 @@ import org.springframework.stereotype.Service;
 public class GoogleAuthService {
 
     public String authenticateToken(String token) {
-        return "GoogleInfo"; // skip detail
+        // skip detail
+        return "Google, authenticateToken with " + token;
     }
 
-    public void revokeToken(String token) {
+    public String revokeToken(String token) {
         // skip detail
+        return "Google, revokeToken with " + token;
     }
 }

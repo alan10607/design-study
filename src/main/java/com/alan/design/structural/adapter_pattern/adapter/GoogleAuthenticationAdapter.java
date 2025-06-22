@@ -21,7 +21,7 @@ public class GoogleAuthenticationAdapter implements AuthenticationAdapter {
     }
 
     @Override
-    public void revokeToken(String token) {
-        googleAuthService.revokeToken(token);
+    public String revokeToken(String token) {
+        return googleAuthService.revokeToken(token);
     }
 }

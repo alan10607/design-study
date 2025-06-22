@@ -21,7 +21,7 @@ public class FacebookAuthenticationAdapter implements AuthenticationAdapter {
     }
 
     @Override
-    public void revokeToken(String token) {
-        facebookAuthService.logout(token);
+    public String revokeToken(String token) {
+        return facebookAuthService.logout(token);
     }
 }
