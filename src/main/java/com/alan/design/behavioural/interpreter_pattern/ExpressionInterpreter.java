@@ -24,6 +24,7 @@ public class ExpressionInterpreter {
                 parseOperand(tokens[2], context)
         );
 
+        // Continue to parse token after index 2
         int i = 3;
         while (i < tokens.length) {
             String logicalOp = tokens[i++];

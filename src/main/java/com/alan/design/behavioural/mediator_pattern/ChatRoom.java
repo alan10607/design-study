@@ -8,7 +8,7 @@ import java.util.List;
 @Component
 public class ChatRoom implements Mediator {
 
-    List<ChatClient> clients = new ArrayList<>();
+    private final List<ChatClient> clients = new ArrayList<>();
 
     public void addClient(ChatClient client) {
         this.clients.add(client);
@@ -19,7 +19,7 @@ public class ChatRoom implements Mediator {
     }
 
     @Override
-    public void sendMessage(String message, final ChatClient sender) {
+    public void sendMessage(String message, ChatClient sender) {
         if (!clients.contains(sender)) {
             throw new IllegalStateException("Client not in chat room");
         }
